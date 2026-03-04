@@ -80,7 +80,7 @@ const CropForm = ({ onLogout }) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("http://localhost:5000/predict-crop", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/predict-crop`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(formData),

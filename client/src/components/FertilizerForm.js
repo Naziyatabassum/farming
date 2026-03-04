@@ -54,7 +54,7 @@ const FertilizerForm = () => {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.post(
-        "http://127.0.0.1:5000/fertilizer-predict",
+        `${process.env.REACT_APP_API_URL}/fertilizer-predict`,
         formData,
         {
           headers: {

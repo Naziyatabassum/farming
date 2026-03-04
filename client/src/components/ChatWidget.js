@@ -36,7 +36,7 @@ const ChatWidget = () => {
     setInput("");
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/ask", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage, language }),

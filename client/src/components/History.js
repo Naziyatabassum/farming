@@ -39,9 +39,9 @@ const History = ({ onLogout }) => {
         };
 
         const [cropRes, fertRes, yieldRes] = await Promise.all([
-          fetch("http://127.0.0.1:5000/api/crop-predictions", { headers }),
-          fetch("http://127.0.0.1:5000/api/fertilizer-recommendations", { headers }),
-          fetch("http://127.0.0.1:5000/api/yield-predictions", { headers }),
+          fetch(`${process.env.REACT_APP_API_URL}/api/crop-predictions`, { headers }),
+          fetch(`${process.env.REACT_APP_API_URL}/api/fertilizer-recommendations`, { headers }),
+          fetch(`${process.env.REACT_APP_API_URL}/api/yield-predictions`, { headers }),
         ]);
 
         const cropData = await cropRes.json();

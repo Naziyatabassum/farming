@@ -66,7 +66,7 @@ const CropYieldPredict = () => {
     const token = localStorage.getItem('token');
     try {
       const res = await axios.post(
-        "http://127.0.0.1:5000/predict-yield",
+        `${process.env.REACT_APP_API_URL}/predict-yield`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
