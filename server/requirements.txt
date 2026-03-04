@@ -1,7 +1,11 @@
 Flask
 flask-cors
-gunicorn
-pymongo
 flask-pymongo
 flask-jwt-extended
+gunicorn
+pymongo
 python-dotenv
+bcrypt
+pandas
+scikit-learn
+google-generativeai
