@@ -23,17 +23,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # ------------------ CORS ------------------
-CORS(
-    app,
-    origins=[
-        "http://localhost:3000",  # local dev
-        "https://farming-mfg7ymmlb-naziyatabassums-projects.vercel.app"  # your frontend
-    ],
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 # ------------------ CONFIG ------------------
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")
