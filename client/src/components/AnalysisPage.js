@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Sidebar from "./Sidebar"; // Ensure correct path
-import Analysis from "./Analysis"; // Ensure correct path
+import { useState } from "react";
+import Analysis from "./Analysis"; 
+import Sidebar from "./Sidebar"; 
 
 const AnalysisPage = () => {
   const [darkMode, setDarkMode] = useState(false);

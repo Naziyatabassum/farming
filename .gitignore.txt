@@ -1,0 +1,18 @@
+# React
+client/node_modules/
+node_modules/
+
+# Flask
+server/venv/
+venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+client/.env
+server/.env
+
+# Build
+build/
+dist/

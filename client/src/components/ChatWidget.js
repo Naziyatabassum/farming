@@ -1,17 +1,17 @@
 // ChatWidget.js
-import React, { useState, useEffect, useRef } from "react";
-import {
-  IconButton,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import ChatIcon from "@mui/icons-material/Chat";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ChatIcon from "@mui/icons-material/Chat";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);

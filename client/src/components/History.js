@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useMemo } from "react";
+import DownloadIcon from "@mui/icons-material/Download";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
-  Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
+  createTheme,
   CssBaseline,
   IconButton,
-  createTheme,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   ThemeProvider,
+  Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import DownloadIcon from "@mui/icons-material/Download";
+import { useEffect, useMemo, useState } from "react";
 import Sidebar from "./Sidebar";
 
 const History = ({ onLogout }) => {
@@ -29,44 +29,50 @@ const History = ({ onLogout }) => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
-      const [cropRes, fertRes, yieldRes] = await Promise.all([
-        fetch("https://farming2090-3.onrender.com/api/crop-predictions", { headers }),
-        fetch("https://farming2090-3.onrender.com/api/fertilizer-recommendations", { headers }),
-        fetch("https://farming2090-3.onrender.com/api/yield-predictions", { headers }),
-      ]);
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
 
-      const cropData = await cropRes.json();
-      const fertData = await fertRes.json();
-      const yieldData = await yieldRes.json();
+        const [cropRes, fertRes, yieldRes] = await Promise.all([
+          fetch("http://127.0.0.1:5000/api/crop-predictions", { headers }),
+          fetch("http://127.0.0.1:5000/api/fertilizer-recommendations", { headers }),
+          fetch("http://127.0.0.1:5000/api/yield-predictions", { headers }),
+        ]);
 
-      const all = [
-        ...cropData.map((p) => ({
-          date: p.createdAt,
-          type: "Crop",
-          crop: p.cropRecommendation,
-          result: "Recommended Crop",
-        })),
-        ...fertData.map((p) => ({
-          date: p.createdAt,
-          type: "Fertilizer",
-          crop: p.crop,
-          result: p.fertilizerType,
-        })),
-        ...yieldData.map((p) => ({
-          date: p.createdAt,
-          type: "Yield",
-          crop: p.crop,
-          result: `${p.predictedYield} tons/ha`,
-        })),
-      ];
+        const cropData = await cropRes.json();
+        const fertData = await fertRes.json();
+        const yieldData = await yieldRes.json();
 
-      setHistory(all.sort((a, b) => new Date(b.date) - new Date(a.date)));
+        const all = [
+          ...cropData.map((p) => ({
+            date: p.createdAt,
+            type: "Crop",
+            crop: p.cropRecommendation || "Unknown",
+            result: "Recommended Crop",
+          })),
+          ...fertData.map((p) => ({
+            date: p.createdAt,
+            type: "Fertilizer",
+            crop: p.crop || "Unknown",
+            result: p.fertilizerType || "Unknown",
+          })),
+          ...yieldData.map((p) => ({
+            date: p.createdAt,
+            type: "Yield",
+            crop: p.crop || "Unknown",
+            result: `${p.predictedYield || 0} tons/ha`,
+          })),
+        ];
+
+        setHistory(all.sort((a, b) => new Date(b.date) - new Date(a.date)));
+      } catch (err) {
+        console.error("Failed to fetch history:", err);
+      }
     };
 
     fetchHistory();
@@ -113,55 +119,49 @@ const History = ({ onLogout }) => {
 
       {/* Top Bar */}
       <Box
-  sx={{
-    position: "fixed",
-    top: 0,
-    left: sidebarOpen ? "260px" : 0,
-    right: 0,
-    height: 56,
-    backdropFilter: "blur(10px)",
-    bgcolor: "rgba(255,255,255,0.15)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    px: 2,
-    zIndex: 1201,
-    transition: "left 0.3s",
-    boxShadow: 3,
-  }}
->
-  <Box display="flex" alignItems="center">
-    <IconButton onClick={() => setSidebarOpen((prev) => !prev)}>
-      <MenuIcon />
-    </IconButton>
-    <Typography variant="h6" sx={{ ml: 1 }}>
-      Prediction History
-    </Typography>
-  </Box>
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: sidebarOpen ? "260px" : 0,
+          right: 0,
+          height: 56,
+          backdropFilter: "blur(10px)",
+          bgcolor: "rgba(255,255,255,0.15)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          px: 2,
+          zIndex: 1201,
+          transition: "left 0.3s",
+          boxShadow: 3,
+        }}
+      >
+        <Box display="flex" alignItems="center">
+          <IconButton onClick={() => setSidebarOpen((prev) => !prev)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" sx={{ ml: 1 }}>
+            Prediction History
+          </Typography>
+        </Box>
 
-  <Box
-    display="flex"
-    alignItems="center"
-    sx={{ cursor: "pointer" }}
-    onClick={downloadCSV}
-  >
-    <Typography
-      sx={{
-        mr: 1,
-        fontWeight: 500,
-        fontSize: "16px",
-        color: "#00695c",
-        textDecoration: "underline",
-      }}
-    >
-      Download here
-    </Typography>
-    <IconButton size="small">
-      <DownloadIcon />
-    </IconButton>
-  </Box>
-</Box>
-
+        <Box display="flex" alignItems="center" sx={{ cursor: "pointer" }} onClick={downloadCSV}>
+          <Typography
+            sx={{
+              mr: 1,
+              fontWeight: 500,
+              fontSize: "16px",
+              color: "#00695c",
+              textDecoration: "underline",
+            }}
+          >
+            Download here
+          </Typography>
+          <IconButton size="small">
+            <DownloadIcon />
+          </IconButton>
+        </Box>
+      </Box>
 
       {/* Main Content */}
       <Box
@@ -172,31 +172,13 @@ const History = ({ onLogout }) => {
           minHeight: "100vh",
           ml: sidebarOpen ? "260px" : 0,
           transition: "margin 0.3s",
-          background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
-          backdropFilter: "blur(20px)",
-          borderRadius: "16px",
-          border: "1px solid rgba(255,255,255,0.2)",
-          boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{ color: "#1b5e20", mb: 1, fontWeight: 600 }}
-        >
+        <Typography variant="h4" sx={{ mb: 2 }}>
           Full Prediction History
         </Typography>
 
-  
-
-        <Paper
-          elevation={6}
-          sx={{
-            overflow: "auto",
-            backdropFilter: "blur(20px)",
-            background: "rgba(255, 255, 255, 0.2)",
-            border: "1px solid rgba(255, 255, 255, 0.3)",
-          }}
-        >
+        <Paper elevation={6} sx={{ overflow: "auto" }}>
           <Table>
             <TableHead sx={{ backgroundColor: "#43a047" }}>
               <TableRow>
@@ -209,14 +191,7 @@ const History = ({ onLogout }) => {
             <TableBody>
               {history.length > 0 ? (
                 history.map((item, i) => (
-                  <TableRow
-                    key={i}
-                    sx={{
-                      backgroundColor: i % 2
-                        ? "rgba(232,245,233,0.6)"
-                        : "rgba(200,230,201,0.6)",
-                    }}
-                  >
+                  <TableRow key={i}>
                     <TableCell>{new Date(item.date).toLocaleString()}</TableCell>
                     <TableCell>{item.type}</TableCell>
                     <TableCell>{item.crop}</TableCell>

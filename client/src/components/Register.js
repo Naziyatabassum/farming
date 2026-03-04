@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -18,7 +18,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await axios.post("https://farming-project09.onrender.com/api/auth/register", {
+      await axios.post( "http://localhost:5000/api/auth/register", {
         name,
         email,
         password,

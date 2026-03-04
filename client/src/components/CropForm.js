@@ -1,20 +1,20 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import MicIcon from "@mui/icons-material/Mic";
 import {
-  Typography,
-  Button,
-  Container,
   Box,
-  TextField,
-  Grid,
+  Button,
   Card,
   CardContent,
-  CssBaseline,
-  IconButton,
+  Container,
   createTheme,
+  CssBaseline,
+  Grid,
+  IconButton,
+  TextField,
   ThemeProvider,
+  Typography,
 } from "@mui/material";
-import MicIcon from "@mui/icons-material/Mic";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
@@ -80,7 +80,7 @@ const CropForm = ({ onLogout }) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("https://farming2090-3.onrender.com/predict", {
+      const response = await fetch("http://localhost:5000/predict-crop", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(formData),

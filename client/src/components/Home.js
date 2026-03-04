@@ -1,17 +1,16 @@
 // src/components/Home.js
-import React from 'react';
 import {
   Box,
-  Typography,
   Button,
-  Grid,
   Card,
-  CardMedia,
   CardContent,
+  CardMedia,
   Container,
+  Grid,
+  Typography,
 } from '@mui/material';
-import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const Home = () => {
   const navigate = useNavigate();

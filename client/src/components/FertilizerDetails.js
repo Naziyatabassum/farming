@@ -1,21 +1,20 @@
-import React from 'react';
+import AgricultureIcon from '@mui/icons-material/Agriculture';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import ScienceIcon from '@mui/icons-material/Science';
+import SpaIcon from '@mui/icons-material/Spa';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import {
   Box,
   Card,
-  Typography,
   Divider,
+  Grow,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Grow,
+  Typography,
 } from '@mui/material';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import OpacityIcon from '@mui/icons-material/Opacity';
-import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import ScienceIcon from '@mui/icons-material/Science';
-import SpaIcon from '@mui/icons-material/Spa';
-import AgricultureIcon from '@mui/icons-material/Agriculture';
 
 export default function FertilizerDetails() {
   const parameters = [

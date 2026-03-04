@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  TextField,
-  Select,
-  MenuItem,
-  InputAdornment,
-  IconButton,
-  Button,
-  FormControl,
-  InputLabel,
-  Grow,
-  CssBaseline,
-} from "@mui/material";
-import { FaMicrophone } from "react-icons/fa";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  FormControl,
+  Grow,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
-import Sidebar from "./Sidebar"; // ✅ Your custom sidebar component
+import { useEffect, useState } from "react";
+import { FaMicrophone } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar"; 
 
 const FertilizerForm = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const FertilizerForm = () => {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.post(
-        "https://farming2090-3.onrender.com/fertilizer-predict",
+        "http://127.0.0.1:5000/fertilizer-predict",
         formData,
         {
           headers: {

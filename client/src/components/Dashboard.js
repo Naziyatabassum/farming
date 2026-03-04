@@ -1,26 +1,26 @@
-import React, { useState, useEffect, useMemo } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
+  Alert,
   Box,
-  Typography,
+  Button,
+  createTheme,
+  CssBaseline,
   Grid,
+  IconButton,
   Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Button,
-  Snackbar,
-  Alert,
-  CssBaseline,
-  createTheme,
   ThemeProvider,
-  IconButton,
+  Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import Sidebar from "./Sidebar";
-import ChatWidget from "./ChatWidget";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import ChatWidget from "./ChatWidget";
+import Sidebar from "./Sidebar";
 
 const MotionPaper = motion(Paper);
 const generateSummary = (type, data) => {
@@ -63,9 +63,9 @@ const Dashboard = ({ onLogout }) => {
         };
 
         const [cropRes, fertRes, yieldRes] = await Promise.all([
-          fetch("https://farming2090-3.onrender.com/api/crop-predictions", { headers }),
-          fetch("https://farming2090-3.onrender.com/api/fertilizer-recommendations", { headers }),
-          fetch("https://farming2090-3.onrender.com/api/yield-predictions", { headers }),
+          fetch("http://127.0.0.1:5000/api/crop-predictions", { headers }),
+          fetch("http://127.0.0.1:5000/api/fertilizer-recommendations", { headers }),
+          fetch("http://127.0.0.1:5000/api/yield-predictions", { headers }),
         ]);
 
         if (!cropRes.ok || !fertRes.ok || !yieldRes.ok) throw new Error("Failed to fetch data.");

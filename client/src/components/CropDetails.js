@@ -1,20 +1,19 @@
-import React from 'react';
+import GrainIcon from '@mui/icons-material/Grain';
+import NatureIcon from '@mui/icons-material/Nature';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import WaterIcon from '@mui/icons-material/Water';
 import {
   Box,
   Card,
-  Typography,
   Divider,
+  Grow,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Grow,
+  Typography,
 } from '@mui/material';
-import OpacityIcon from '@mui/icons-material/Opacity';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import WaterIcon from '@mui/icons-material/Water';
-import NatureIcon from '@mui/icons-material/Nature';
-import GrainIcon from '@mui/icons-material/Grain';
 
 export default function CropDetails() {
   const parameters = [

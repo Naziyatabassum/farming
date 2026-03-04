@@ -1,24 +1,23 @@
 // src/components/Sidebar.js
-import React from "react";
 import {
+  Agriculture,
+  Brightness4,
+  ChevronLeft as ChevronLeftIcon,
+  Dashboard as DashboardIcon,
+  Science,
+  ShowChart,
+} from "@mui/icons-material";
+import {
+  Avatar,
   Box,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  IconButton,
   Switch,
-  Typography,
-  Avatar
+  Typography
 } from "@mui/material";
-import {
-  Dashboard as DashboardIcon,
-  Agriculture,
-  ShowChart,
-  Science,
-  Brightness4,
-  ChevronLeft as ChevronLeftIcon,
-} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const sidebarWidth = 260;

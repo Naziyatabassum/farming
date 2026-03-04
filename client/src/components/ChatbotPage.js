@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-  Paper,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 
 const ChatbotPage = () => {
   const [messages, setMessages] = useState([
@@ -81,7 +81,7 @@ const ChatbotPage = () => {
   window.speechSynthesis.cancel();
 
   try {
-    const res = await fetch("https://farming2090-3.onrender.com/ask", {
+    const res = await fetch("http://127.0.0.1:5000/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: userMessage, language }),

@@ -1,6 +1,5 @@
 // src/components/Navbar.js
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {

@@ -1,36 +1,36 @@
 // src/components/Analysis.js
-import React, { useEffect, useState, useMemo } from "react";
-import {
-  Box,
-  Typography,
-  MenuItem,
-  Select,
-  Paper,
-  CssBaseline,
-  createTheme,
-  ThemeProvider,
-  IconButton,
-  Fade,
-  Button,
-  ButtonGroup
-} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
-  BarChart,
-  LineChart,
-  PieChart,
+  Box,
+  Button,
+  ButtonGroup,
+  createTheme,
+  CssBaseline,
+  Fade,
+  IconButton,
+  MenuItem,
+  Paper,
+  Select,
+  ThemeProvider,
+  Typography
+} from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
+import { Navigate } from "react-router-dom";
+import {
   Bar,
-  Line,
-  Pie,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
+  BarChart,
   CartesianGrid,
-  Cell
+  Cell,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
 } from "recharts";
 import Sidebar from "./Sidebar";
-import { Navigate } from "react-router-dom";
 
 const Analysis = () => {
   const [days, setDays] = useState(7);
@@ -50,18 +50,25 @@ const Analysis = () => {
       },
     }), [darkMode]
   );
+useEffect(() => {
+  if (!isAuthenticated) return;
 
-  useEffect(() => {
-    if (!isAuthenticated) return;
+  const fetchAndFilter = async () => {
+    const headers = { 
+      "Content-Type": "application/json", 
+      Authorization: `Bearer ${token}` 
+    };
 
-    const fetchAndFilter = async () => {
-      const headers = { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
-
+    try {
       const [cropRes, fertRes, yieldRes] = await Promise.all([
-        fetch("https://farming2090-3.onrender.com/api/crop-predictions", { headers }),
-        fetch("https://farming2090-3.onrender.com/fertilizer-recommendations", { headers }),
-        fetch("https://farming2090-3.onrender.com/api/yield-predictions", { headers }),
+        fetch("http://127.0.0.1:5000/api/crop-predictions", { headers }),
+        fetch("http://127.0.0.1:5000/api/fertilizer-recommendations", { headers }),
+        fetch("http://127.0.0.1:5000/api/yield-predictions", { headers }),
       ]);
+
+      if (!cropRes.ok) throw new Error(`Crop fetch failed: ${cropRes.status}`);
+      if (!fertRes.ok) throw new Error(`Fertilizer fetch failed: ${fertRes.status}`);
+      if (!yieldRes.ok) throw new Error(`Yield fetch failed: ${yieldRes.status}`);
 
       const cropData = await cropRes.json();
       const fertData = await fertRes.json();
@@ -70,25 +77,35 @@ const Analysis = () => {
       const now = new Date();
       const cutoff = new Date(now.setDate(now.getDate() - days));
 
-      const filterByDate = (arr) => arr.filter((item) => new Date(item.createdAt) >= cutoff);
-
+      // transform and filter
       const combined = [
-        ...filterByDate(cropData).map((d) => ({
-          type: "Crop",
-          date: new Date(d.createdAt).toLocaleDateString(),
-        })),
-        ...filterByDate(fertData).map((d) => ({
-          type: "Fertilizer",
-          date: new Date(d.createdAt).toLocaleDateString(),
-        })),
-        ...filterByDate(yieldData).map((d) => ({
-          type: "Yield",
-          date: new Date(d.createdAt).toLocaleDateString(),
-        })),
+        ...cropData
+          .filter(d => new Date(d.createdAt) >= cutoff)
+          .map(d => ({
+            type: "Crop",
+            date: new Date(d.createdAt).toLocaleDateString(),
+            value: d.cropRecommendation || "Unknown"
+          })),
+        ...fertData
+          .filter(d => new Date(d.createdAt) >= cutoff)
+          .map(d => ({
+            type: "Fertilizer",
+            date: new Date(d.createdAt).toLocaleDateString(),
+            value: d.fertilizerType || "Unknown"
+          })),
+        ...yieldData
+          .filter(d => new Date(d.createdAt) >= cutoff)
+          .map(d => ({
+            type: "Yield",
+            date: new Date(d.createdAt).toLocaleDateString(),
+            value: d.predictedYield || 0
+          })),
       ];
 
-      const filtered = combined.filter((item) => selectedTypes.includes(item.type));
+      // filter by selected types
+      const filtered = combined.filter(item => selectedTypes.includes(item.type));
 
+      // count per date+type
       const counts = {};
       filtered.forEach(({ type, date }) => {
         const key = `${date}-${type}`;
@@ -101,10 +118,14 @@ const Analysis = () => {
       });
 
       setData(result);
-    };
+    } catch (err) {
+      console.error("Error fetching history:", err);
+    }
+  };
 
-    fetchAndFilter();
-  }, [days, selectedTypes, isAuthenticated, token]);
+  fetchAndFilter();
+}, [days, selectedTypes, isAuthenticated, token]);
+
 
   const renderChart = () => {
     switch (chartType) {

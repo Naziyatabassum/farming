@@ -1,22 +1,21 @@
-import React from 'react';
 import {
   Box,
   Card,
-  Typography,
   Divider,
+  Grow,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Grow,
+  Typography,
 } from '@mui/material';
 
+import AgricultureIcon from '@mui/icons-material/Agriculture';
+import BugReportIcon from '@mui/icons-material/BugReport';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import OpacityIcon from '@mui/icons-material/Opacity';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
 import PublicIcon from '@mui/icons-material/Public';
-import AgricultureIcon from '@mui/icons-material/Agriculture';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
 
 export default function CropYieldDetails() {
   const parameters = [
