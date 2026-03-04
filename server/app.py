@@ -26,11 +26,12 @@ app = Flask(__name__)
 CORS(
     app,
     origins=[
-        "http://localhost:3000",
-        "https://farming-mfg7ymmlb-naziyatabassums-projects.vercel.app"
+        "http://localhost:3000",  # local dev
+        "https://farming-mfg7ymmlb-naziyatabassums-projects.vercel.app"  # your frontend
     ],
     supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"]
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 
 # ------------------ CONFIG ------------------
