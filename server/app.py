@@ -24,13 +24,7 @@ app = Flask(__name__)
 
 # ------------------ CORS ------------------
 CORS(
-    app,
-    origins=[
-        "http://localhost:3000",
-        "https://farming-6gxb7k9cy-naziyatabassums-projects.vercel.app"
-    ],
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"]
+    app
 )
 
 # ------------------ CONFIG ------------------
