@@ -25,7 +25,10 @@ app = Flask(__name__)
 # ------------------ CORS ------------------
 CORS(
     app,
-    origins=["http://localhost:3000"],
+    origins=[
+        "http://localhost:3000",
+        "https://farming-rho.vercel.app/"
+    ],
     supports_credentials=True,
     allow_headers=["Content-Type", "Authorization"]
 )
