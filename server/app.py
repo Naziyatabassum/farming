@@ -27,7 +27,7 @@ CORS(
     app,
     origins=[
         "http://localhost:3000",
-        "https://farming-rho.vercel.app/"
+        "https://farming-6gxb7k9cy-naziyatabassums-projects.vercel.app"
     ],
     supports_credentials=True,
     allow_headers=["Content-Type", "Authorization"]
