@@ -23,7 +23,14 @@ load_dotenv()
 app = Flask(__name__)
 
 # ------------------ CORS ------------------
-CORS(app, origins=["https://farming-hmppgzyml-naziyatabassums-projects.vercel.app"])
+CORS(app)
+
+@app.after_request
+def add_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+    return response
 # ------------------ CONFIG ------------------
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")
