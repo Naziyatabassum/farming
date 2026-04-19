@@ -217,7 +217,7 @@ const FertilizerForm = () => {
                         <IconButton
                           onClick={() =>
                             startListeningDropdown("crop_type", [
-                              "rice", "Wheat", "Sugarcane", "Pulses", "pomegranate",
+                              "Rice", "Wheat", "Sugarcane", "Pulses", "pomegranate",
                               "Millets", "Maize", "Ground Nuts", "Cotton", "coffee",
                               "watermelon", "Oil seeds", "Tobacco",
                             ])
@@ -230,7 +230,7 @@ const FertilizerForm = () => {
                     }
                   >
                     {[
-                      "rice", "Wheat", "Sugarcane", "Pulses", "pomegranate",
+                      "Rice", "Wheat", "Sugarcane", "Pulses", "pomegranate",
                       "Millets", "Maize", "Ground Nuts", "Cotton", "coffee",
                       "watermelon", "Oil seeds", "Tobacco",
                     ].map((crop) => (
