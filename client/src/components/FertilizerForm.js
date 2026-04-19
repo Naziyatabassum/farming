@@ -65,8 +65,15 @@ const FertilizerForm = () => {
       );
       setResult(res.data.recommended_fertilizer);
     } catch (err) {
-      setResult("Error fetching recommendation");
-    } finally {
+  console.log("ERROR:", err);
+  console.log("RESPONSE:", err.response?.data);
+
+  setResult(
+    err.response?.data?.error ||
+    err.response?.data?.msg ||
+    "Error fetching recommendation"
+  );
+} finally {
       setLoading(false);
     }
   };
