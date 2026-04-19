@@ -15,7 +15,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://farming-1-70e9.onrender.com/api/auth/login", {
+      const res = await axios.post("http://127.0.0.1:5000/api/auth/login", {
         email,
         password,
       });
