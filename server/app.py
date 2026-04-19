@@ -238,11 +238,14 @@ def fertilizer_predict():
     data = request.get_json()
 
     try:
+        print("Incoming Data:", data)  # ✅ DEBUG
+
         encoded_soil = label_encoders["Soil_Type"].transform([data["soil_type"]])[0]
         encoded_crop = label_encoders["Crop_Type"].transform([data["crop_type"]])[0]
 
+        # ✅ FIXED COLUMN NAME (Temparature → Temperature)
         df = pd.DataFrame([{
-            "Temparature": float(data["temperature"]),
+            "Temperature": float(data["temperature"]),
             "Humidity": float(data["humidity"]),
             "Moisture": float(data["moisture"]),
             "Soil_Type": encoded_soil,
@@ -258,6 +261,7 @@ def fertilizer_predict():
         return jsonify({"recommended_fertilizer": fertilizer})
 
     except Exception as e:
+        print("ERROR:", str(e))  # ✅ DEBUG
         return jsonify({"error": str(e)}), 400
 
 # ------------------ GOOGLE AI CHAT ------------------
