@@ -25,7 +25,7 @@ const FertilizerForm = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const [formData, setFormData] = useState({
-    temperature: "",
+    Temparature: "",
     humidity: "",
     moisture: "",
     soil_type: "",
@@ -159,7 +159,7 @@ const FertilizerForm = () => {
                 Fertilizer Recommendation Form
               </Typography>
               <form onSubmit={handleSubmit}>
-                {["temperature", "humidity", "moisture", "nitrogen", "phosphorous", "potassium"].map((field) => (
+                {["Temparature", "humidity", "moisture", "nitrogen", "phosphorous", "potassium"].map((field) => (
                   <TextField
                     key={field}
                     name={field}
