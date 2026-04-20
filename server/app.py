@@ -245,7 +245,7 @@ def fertilizer_predict():
 
         # ✅ FIXED COLUMN NAME (Temparature → Temperature)
         df = pd.DataFrame([{
-            "Temperature": float(data["temperature"]),
+            "Temparature": float(data["Temparature"]),
             "Humidity": float(data["humidity"]),
             "Moisture": float(data["moisture"]),
             "Soil_Type": encoded_soil,
